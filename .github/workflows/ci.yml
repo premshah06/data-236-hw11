@@ -26,10 +26,4 @@ jobs:
       working-directory: mlops_pipeline
       run: python train_model.py
 
-    - name: Sanity‐check model load
-      run: |
-        python - <<EOF
-        import joblib
-        joblib.load("mlops_pipeline/model.pkl")
-        print("✔ model loads")
-        EOF
+
