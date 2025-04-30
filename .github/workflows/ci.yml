@@ -19,12 +19,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install scikit-learn joblib fastapi uvicorn pytest
+        pip install numpy scikit-learn joblib fastapi uvicorn pytest kafka-python pymongo
 
     - name: Train model artifact
-      run: |
-        python mlops_pipeline/train_model.py
-
+      working-directory: mlops_pipeline
+      run: python train_model.py
+      
     - name: Sanity‐check model load
       run: |
         python - <<EOF
