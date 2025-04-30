@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install scikit-learn joblib fastapi uvicorn pytest
+
+    - name: Train model artifact
+      run: |
+        python mlops_pipeline/train_model.py
+
+    - name: Sanity‐check model load
+      run: |
+        python - <<EOF
+        import joblib
+        joblib.load("mlops_pipeline/model.pkl")
+        print("✔ model loads")
+        EOF
