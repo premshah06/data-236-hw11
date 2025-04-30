@@ -19,7 +19,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install numpy scikit-learn joblib fastapi uvicorn pytest kafka-python pymongo numpy._core
+        pip install --upgrade pip
+        pip install -r mlops_pipeline/requirements.txt
 
     - name: Train model artifact
       working-directory: mlops_pipeline
